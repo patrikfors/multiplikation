@@ -175,6 +175,7 @@ def multiplikation(output_file, factor_level, seed, max_factor=10, page_size=A4)
                 point_y)
 
     # write header
+    header_font_size = 24
     pdf.setLineWidth(1)
     pdf.line(
         margin_size / 2,
@@ -182,20 +183,32 @@ def multiplikation(output_file, factor_level, seed, max_factor=10, page_size=A4)
         width - margin_size / 2,
         height - margin_size)
 
-    pdf.setFont(font_name, 24)
+    pdf.setFont(font_name, header_font_size)
     text = f"Multiplikation {factor_level}"
-    text_width = stringWidth(text, font_name, 24)
+    text_width = stringWidth(text, font_name, header_font_size)
     pdf.drawString(width / 2 - text_width / 2, height - margin_size + spacing, text)
 
     # write footer
+    footer_font_size = 10
     pdf.line(
         margin_size / 2,
         margin_size - spacing,
         width - margin_size / 2,
         margin_size - spacing)
-    pdf.setFont(font_name, 10)
+    pdf.setFont(font_name, footer_font_size)
     text = f"Multiplikation v{__version__} {{max_factor={max_factor}, seed={seed}}}"
-    pdf.drawString(margin_size / 2, margin_size - spacing - 10, text)
+    pdf.drawString(
+        margin_size / 2,
+        margin_size - spacing - footer_font_size,
+        text)
+
+    # add Copyright notice
+    copyright_text = "Copyright \u00a9 2017 Patrik Fors"
+    text_width = stringWidth(copyright_text, font_name, footer_font_size)
+    pdf.drawString(
+        width - margin_size / 2 - text_width,
+        margin_size - spacing - footer_font_size,
+        copyright_text)
 
     pdf.save()
     return 0
