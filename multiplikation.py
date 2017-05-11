@@ -109,8 +109,8 @@ def check_arg(arguments=None):
 
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('--version', action='store_true')
-    parser.add_argument('level', type=int)
     parser.add_argument('--seed', default=int(time()))
+    parser.add_argument('level', type=int)
     parser.add_argument('output_file', nargs='*', default=None)
     parser.set_defaults(version=False)
 
@@ -143,6 +143,9 @@ def multiplikation(output_file, factor_level, seed, max_factor=10, page_size=A4)
     font_size = 12
     columns = 4
     rows = 20
+
+    if verbosity_level > 3:
+        print(f"seed type is {type(seed)}")
 
     if factor_level > max_factor:
         max_factor = factor_level
@@ -256,7 +259,7 @@ def main(arguments):
     return multiplikation(
         output_file,
         command_line_options.level,
-        command_line_options.seed)
+        int(command_line_options.seed))
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
