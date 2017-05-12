@@ -262,6 +262,10 @@ def main(arguments):
         print(__doc__)
         return 0
 
+    if command_line_options.level < 1:
+        print("You cannot select a level < 1.")
+        return -3
+
     if command_line_options.output_file and len(command_line_options.output_file) > 1:
         print("Please specify only one output file.")
         return -2
